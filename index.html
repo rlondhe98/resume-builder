@@ -395,6 +395,7 @@
                 <button class="tab" data-tab="education">Education</button>
                 <button class="tab" data-tab="certifications">Certifications</button>
                 <button class="tab" data-tab="projects">Projects</button>
+                <button class="tab" data-tab="coverletter" style="background:#06d6a0;color:#1a1a2e;">Cover Letter</button>
             </div>
 
             <!-- Personal Info -->
@@ -491,6 +492,37 @@
                 <h3 class="section-title">Projects</h3>
                 <div id="projects-entries"></div>
                 <button class="add-btn" onclick="addProject()">+ Add Project</button>
+            </div>
+
+            <!-- Cover Letter -->
+            <div class="tab-content" id="tab-coverletter">
+                <h3 class="section-title">Cover Letter Generator</h3>
+                <p style="font-size:0.85rem;color:#64748b;margin-bottom:16px;">Paste the job description below and click Generate. The cover letter is built from your resume data automatically.</p>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="cl-company" placeholder="Google">
+                </div>
+                <div class="form-group">
+                    <label>Job Title / Role</label>
+                    <input type="text" id="cl-role" placeholder="Senior Software Engineer">
+                </div>
+                <div class="form-group">
+                    <label>Hiring Manager Name (optional)</label>
+                    <input type="text" id="cl-manager" placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label>Job Description (paste the full JD for best keyword matching)</label>
+                    <textarea id="cl-jd" rows="8" placeholder="Paste the job description here..."></textarea>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:12px;">
+                    <button class="btn btn-success" onclick="generateCoverLetter()">&#9889; Generate Cover Letter</button>
+                    <button class="btn btn-primary" onclick="downloadCoverLetter()">&#128196; Download as .txt</button>
+                    <button class="btn btn-secondary" onclick="copyCoverLetter()">&#128203; Copy</button>
+                </div>
+                <div class="form-group" style="margin-top:20px;">
+                    <label>Generated Cover Letter (editable)</label>
+                    <textarea id="cl-output" rows="18" style="font-family:'Times New Roman',Georgia,serif;font-size:11pt;line-height:1.5;" placeholder="Your cover letter will appear here..."></textarea>
+                </div>
             </div>
         </div>
 
@@ -1150,6 +1182,115 @@
             _origUpdatePreview();
             autoSave();
         };
+
+        // ─── Cover Letter Generator ─────────────────────────────
+        function generateCoverLetter() {
+            updatePreview();
+            const d = resumeData;
+            const company = document.getElementById('cl-company').value.trim() || '[Company]';
+            const role = document.getElementById('cl-role').value.trim() || '[Position]';
+            const manager = document.getElementById('cl-manager').value.trim();
+            const jd = document.getElementById('cl-jd').value.trim();
+
+            // Extract keywords from JD for matching
+            const jdWords = jd.toLowerCase().split(/\W+/).filter(w => w.length > 3);
+            const skillMatches = d.skills.filter(s => {
+                const sl = s.toLowerCase();
+                return jdWords.some(w => sl.includes(w) || w.includes(sl.split(' ')[0]));
+            });
+
+            // Build experience highlights
+            const topExp = d.experience.slice(0, 2);
+            let expHighlights = '';
+            topExp.forEach(exp => {
+                if (exp.title && exp.company) {
+                    const topBullet = (exp.bullets || []).filter(Boolean)[0];
+                    if (topBullet) {
+                        expHighlights += `As a ${exp.title} at ${exp.company}, I ${topBullet.charAt(0).toLowerCase() + topBullet.slice(1).replace(/\.$/, '')}. `;
+                    }
+                }
+            });
+
+            // Calculate total experience years from dates
+            let totalYears = '';
+            if (d.experience.length > 0) {
+                const earliest = d.experience[d.experience.length - 1];
+                const startMatch = (earliest.dates || '').match(/(\d{4})/);
+                if (startMatch) {
+                    const years = new Date().getFullYear() - parseInt(startMatch[1]);
+                    if (years > 0) totalYears = `${years}+ years of`;
+                }
+            }
+
+            const greeting = manager ? `Dear ${manager},` : 'Dear Hiring Manager,';
+            const skillsList = skillMatches.length > 0 ? skillMatches.slice(0, 6).join(', ') : d.skills.slice(0, 6).join(', ');
+            const degree = d.education.length > 0 ? d.education[0].degree : '';
+            const school = d.education.length > 0 ? d.education[0].school : '';
+
+            let letter = `${d.name}\n`;
+            if (d.email || d.phone) letter += `${[d.email, d.phone, d.location].filter(Boolean).join(' | ')}\n`;
+            if (d.linkedin) letter += `${d.linkedin}\n`;
+            letter += `\n`;
+            letter += `${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}\n\n`;
+            letter += `${greeting}\n\n`;
+
+            // Opening paragraph
+            letter += `I am writing to express my strong interest in the ${role} position at ${company}. `;
+            if (totalYears) {
+                letter += `With ${totalYears} professional experience`;
+                if (skillsList) letter += ` specializing in ${skillsList}`;
+                letter += `, I am confident in my ability to make meaningful contributions to your team.\n\n`;
+            } else {
+                letter += `With my background in ${skillsList}, I am confident in my ability to make meaningful contributions to your team.\n\n`;
+            }
+
+            // Body paragraph - experience
+            if (expHighlights) {
+                letter += `In my recent roles, I have demonstrated a strong track record of delivering results. ${expHighlights}These experiences have equipped me with the skills and perspective needed to excel in the ${role} role at ${company}.\n\n`;
+            }
+
+            // Skills/qualifications paragraph
+            if (d.skills.length > 0) {
+                letter += `My technical expertise includes ${d.skills.slice(0, 8).join(', ')}`;
+                if (degree) letter += `, complemented by my ${degree} from ${school}`;
+                letter += `. `;
+                if (d.certifications.length > 0) {
+                    letter += `I also hold certifications including ${d.certifications.slice(0, 2).join(' and ')}. `;
+                }
+                letter += `This combination of hands-on experience and formal training positions me well to contribute from day one.\n\n`;
+            }
+
+            // Closing paragraph
+            letter += `I am excited about the opportunity to bring my expertise to ${company} and would welcome the chance to discuss how my background aligns with your team's goals. Thank you for considering my application. I look forward to hearing from you.\n\n`;
+            letter += `Sincerely,\n${d.name}`;
+
+            document.getElementById('cl-output').value = letter;
+            showToast('Cover letter generated!', 'success');
+        }
+
+        function downloadCoverLetter() {
+            const text = document.getElementById('cl-output').value;
+            if (!text) { showToast('Generate a cover letter first', 'error'); return; }
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'cover_letter.txt';
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('Downloaded cover_letter.txt', 'success');
+        }
+
+        function copyCoverLetter() {
+            const text = document.getElementById('cl-output').value;
+            if (!text) { showToast('Generate a cover letter first', 'error'); return; }
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!', 'success');
+            }).catch(() => {
+                document.getElementById('cl-output').select();
+                document.execCommand('copy');
+                showToast('Copied!', 'success');
+            });
+        }
 
         // ─── Load on startup ───────────────────────────────────
         loadData();
