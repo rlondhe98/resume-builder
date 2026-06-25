@@ -1,0 +1,85 @@
+{
+  "certifications": [
+    "Salesforce Certified MuleSoft Developer (Jul 2020)",
+    "Salesforce Certified MuleSoft Developer II (Apr 2023)",
+    "Salesforce Certified Agentforce Specialist (Sep 2025)",
+    "Superbadge: Apex for Agentforce",
+    "Superbadge: Advanced Flow for Agentforce",
+    "Superbadge: Agentforce Service",
+    "Superbadge: Prompt Builder Templates",
+    "Agentblazer status - Legend (2025 & 2026)"
+  ],
+  "education": [
+    {
+      "dates": "2015 - 2019",
+      "degree": "Bachelor's degree, Information Technology Engineering",
+      "gpa": "7.75",
+      "highlights": [],
+      "location": "New Panvel, Mumbai",
+      "school": "Pillai College Of Engineering"
+    }
+  ],
+  "email": "rlondhe4561@gmail.com",
+  "experience": [
+    {
+      "bullets": [
+        "Transitioned from an external consulting role to join Takeda as a full-time Senior MuleSoft Developer, reflecting direct recognition of technical contributions delivered during the engagement",
+        "Continued to own and evolve the enterprise integration landscape, driving stability, performance, and scalability of mission-critical MuleSoft APIs across the organization",
+        "Collaborated closely with internal business and technology stakeholders to align integration architecture with evolving Salesforce Health Cloud and CRM roadmap requirements",
+        "Took on expanded ownership of the HCP onboarding and data synchronization pipelines, ensuring continuous improvement and reliability of key pharmaceutical commercial processes",
+        "Pioneered the adoption of AI-assisted development practices in day-to-day project activities, leveraging AI tools to accelerate integration design, code generation, documentation, and troubleshooting — driving measurable improvements in developer productivity",
+        "Built a custom AI-powered utility to migrate existing MuleSoft applications from Secure Properties to HashiCorp Vault, automating the transition to enterprise-grade secrets management and improving security posture across the integration landscape",
+        "Designed and deployed a custom Splunk dashboard to generate real-time operational metrics around the HCP onboarding pipeline, providing visibility into lead creation volumes, auto-match rates, and qualification trends — enabling data-driven decisions for business and operations teams"
+      ],
+      "company": "TAKEDA INNOVATIONS INDIA PRIVATE LIMITED",
+      "dates": "May 2024 to Present",
+      "location": "Bengaluru",
+      "title": "Data Integration Engineer (MuleSoft)"
+    },
+    {
+      "bullets": [
+        "Embarked on a career as a MuleSoft Developer, gaining hands-on expertise in the Anypoint Platform, integration design, and API lifecycle management within a financial services domain",
+        "Developed RESTful APIs following API-Led Connectivity principles, structuring solutions across Experience, Process, and System layers to maximize reusability, maintainability, and scalability across enterprise systems",
+        "Designed and implemented file-based integrations leveraging event-driven architecture patterns, enabling reliable, asynchronous processing of high-volume data exchanges with fault tolerance and decoupled system communication",
+        "Contributed to the end-to-end integration of core financial systems, ensuring secure, compliant, and performant data flows between banking/finance platforms and downstream applications",
+        "Awarded GoMx Phoenix award for excellent ownership, dedication and trust"
+      ],
+      "company": "LTIMindtree LTD",
+      "dates": "Aug 2019 to Nov 2021",
+      "location": "Mumbai",
+      "title": "Software Engineer"
+    },
+    {
+      "bullets": [
+        "Spearheaded integration development for a global pharmaceutical client, architecting enterprise-grade MuleSoft solutions across a diverse technology ecosystem including Salesforce Health Cloud, SendGrid, SpotMe, and OneTrust",
+        "Designed and delivered API-Led RESTful APIs following Experience, Process, and System layer architecture, enabling seamless integration between mobile applications and Salesforce Health Cloud with maximum reusability and scalability",
+        "Built robust file-based integrations using event-driven patterns to reliably sync high-volume data from external vendors into Salesforce Health Cloud, ensuring data integrity and operational continuity",
+        "Engineered end-to-end HCP (Healthcare Professional) onboarding APIs into Salesforce CRM, incorporating automated matching logic, lead generation workflows, and lead qualification processes — significantly reducing manual intervention in the onboarding lifecycle",
+        "Drove a 30% reduction in lead creation time and manual qualification effort by integrating IQVIA data into the HCP matching process, improving data accuracy and accelerating the onboarding pipeline",
+        "Ensured compliance and data privacy adherence across integrations by working within OneTrust governance frameworks, critical for pharmaceutical regulatory standards"
+      ],
+      "company": "ACCENTURE SOLUTIONS PVT. LTD.",
+      "dates": "Nov 2021 to May 2024",
+      "location": "Mumbai",
+      "title": "Senior Software Engineer"
+    }
+  ],
+  "github": "",
+  "linkedin": "https://www.linkedin.com/in/rohanlondhe/",
+  "location": "Bangalore, India",
+  "name": "Rohan Londhe",
+  "phone": "+91 9819698374",
+  "projects": [],
+  "skills": [
+    "MuleSoft",
+    "REST APIs",
+    "DataWeave 2.0",
+    "API Design",
+    "Integration design",
+    "API-Led Connectivity",
+    "MUnit",
+    "System thinking"
+  ],
+  "summary": "I am a certified MuleSoft developer with over 6 years of experience in designing and building robust API integrations. My expertise spans across integrating various platforms, including Salesforce, SendGrid, and more. I am passionate about leveraging MuleSoft to create seamless and efficient solutions that drive business success.",
+  "website": "https://www.salesforce.com/trailblazer/rohan-londhe"
+}

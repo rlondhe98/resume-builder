@@ -1,0 +1,72 @@
+% ATS-Friendly Resume Template
+% Single column, standard fonts, no graphics, no tables
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+% Remove page numbers for single-page resumes
+\pagestyle{empty}
+
+% Section formatting - clean and ATS-parseable
+\titleformat{\section}{\large\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+% Remove paragraph indent
+\setlength{\parindent}{0pt}
+
+% Tight list spacing
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=18pt}
+
+\begin{document}
+
+% === HEADER ===
+\begin{center}
+{\LARGE\bfseries <<name>>}\\[4pt]
+<<contact_line>>
+\end{center}
+
+\vspace{4pt}
+
+% === SUMMARY ===
+<<#summary>>
+\section{Professional Summary}
+<<summary>>
+<</summary>>
+
+% === SKILLS ===
+<<#skills>>
+\section{Skills}
+<<skills_formatted>>
+<</skills>>
+
+% === EXPERIENCE ===
+<<#experience>>
+\section{Professional Experience}
+<<experience_entries>>
+<</experience>>
+
+% === EDUCATION ===
+<<#education>>
+\section{Education}
+<<education_entries>>
+<</education>>
+
+% === CERTIFICATIONS ===
+<<#certifications>>
+\section{Certifications}
+<<certifications_entries>>
+<</certifications>>
+
+% === PROJECTS ===
+<<#projects>>
+\section{Projects}
+<<projects_entries>>
+<</projects>>
+
+\end{document}
