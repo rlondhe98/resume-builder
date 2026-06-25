@@ -639,15 +639,24 @@
 
         function sortExperienceByDate() {
             resumeData.experience.sort((a, b) => {
-                const parseDate = (str) => {
+                const parseEndDate = (str) => {
                     if (!str) return new Date(0);
-                    const parts = str.split(/\s*[-\u2013]\s*/);
-                    const endPart = (parts[1] || parts[0] || '').trim();
-                    if (/present|current|now/i.test(endPart)) return new Date(9999, 0);
+                    // Split on " - ", " – ", " to ", "–", "-" (with surrounding spaces)
+                    const parts = str.split(/\s+(?:to|-|–)\s+|\s*[–]\s*/i);
+                    const endPart = (parts.length > 1 ? parts[parts.length - 1] : parts[0] || '').trim();
+                    if (/present|current|now|ongoing/i.test(endPart)) return new Date(9999, 0);
+                    // Try parsing "Nov 2021", "May 2024", "2024", "11/2021" etc.
+                    const monthYear = endPart.match(/([A-Za-z]+)\s*(\d{4})/);
+                    if (monthYear) {
+                        const d = new Date(`${monthYear[1]} 1, ${monthYear[2]}`);
+                        if (!isNaN(d.getTime())) return d;
+                    }
+                    const yearOnly = endPart.match(/(\d{4})/);
+                    if (yearOnly) return new Date(parseInt(yearOnly[1]), 0);
                     const d = new Date(endPart);
                     return isNaN(d.getTime()) ? new Date(0) : d;
                 };
-                return parseDate(b.dates) - parseDate(a.dates);
+                return parseEndDate(b.dates) - parseEndDate(a.dates);
             });
             renderExperience();
             updatePreview();
